@@ -17,6 +17,7 @@ fetch("conf.json")
 
         const navBarComp = NavBarComponent(conf);
         const compFetch = generateFetchComponent();
+        
         const Map = createMap();
 
         //fa render mappa
@@ -40,7 +41,7 @@ fetch("conf.json")
             form.setLabels(data);
             table1.setData(data); 
             table1.render(); 
-            Map.add(data); // Assicurati che i dati siano passati alla mappa se necessario
+            Map.add(data); 
         });
 
         // Configura e renderizza la barra di navigazione

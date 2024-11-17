@@ -32,8 +32,9 @@ export const tableComponent = () => {
     return {
         // Impostazione dei dati
         setData: (dato) => {
-            data.push(dato);
-            filteredData = data;  // I dati filtrati inizialmente sono uguali ai dati originali
+            data=dato;
+            //data.push(dato);
+            filteredData = data;  
         },
 
         // Impostazione dell'elemento principale dove renderizzare la tabella

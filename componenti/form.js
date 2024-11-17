@@ -1,10 +1,10 @@
 export const createForm = (parentElement, Map,tableComponent) => {
-    let dato = {};
+    let dato_lista = [];
     let callback = null;
 
     return {
         setLabels: (labels) => {
-            dato = labels;
+            dato_lista = labels;
         },
         onsubmit: (callbackInput) => {
             callback = callbackInput;
@@ -12,7 +12,7 @@ export const createForm = (parentElement, Map,tableComponent) => {
         render: (table1, compFetch, mappe) => {
             parentElement.innerHTML =
                 `<div>Indirizzo<br/><input id="indirizzo" type="text" class="form-label form-control"/></div>` +
-                `<div>Targa 1<br/><input id="targa1" type="text" class="form-label form-control"/></div>` +
+                `<div>Targa 1(obbligatorio)<br/><input id="targa1" type="text" class="form-label form-control"/></div>` +
                 `<div>Targa 2<br/><input id="targa2" type="text" class="form-label form-control"/></div>` +
                 `<div>Targa 3<br/><input id="targa3" type="text" class="form-label form-control"/></div>` +
                 `<div>Data<br/><input id="data_incidente" type="date" class="form-label form-control"/></div>` +
@@ -48,7 +48,7 @@ export const createForm = (parentElement, Map,tableComponent) => {
                         targa3="Non segnalata";
                     }
                     Map.add(indirizzo, targa1, targa2, targa3, data_incidente, ora, numeroferiti, numerovittime);
-                    dato = {
+                    const dato = {
                         "Indirizzo": indirizzo,
                         "Targa 1": targa1,
                         "Targa 2": targa2,
@@ -58,9 +58,27 @@ export const createForm = (parentElement, Map,tableComponent) => {
                         "Numero Feriti": numeroferiti,
                         "Numero Vittime": numerovittime
                     };
-                    tableComponent.setData(dato);  
+                    dato_lista.push(dato);
+                    compFetch.setData(dato_lista).then(data => {
+                        compFetch.getData().then(data=>{
+                            dato_lista=data;
+                            table1.setData(dato_lista)
+                            table1.render()
+                            Map.render(dato_lista)
+                        })
+                    })}
+                    tableComponent.setData(dato_lista);  
                     tableComponent.render();
+                    compFetch.setData(dato_lista)
                     outputform.innerHTML = "OK";
+                    document.querySelector("#indirizzo").value = "";
+                    document.querySelector("#targa1").value = "";
+                    document.querySelector("#targa2").value = "";
+                    document.querySelector("#targa3").value = "";
+                    document.querySelector("#data_incidente").value = "";
+                    document.querySelector("#ora").value = "";
+                    document.querySelector("#numeroferiti").value = "";
+                    document.querySelector("#numerovittime").value = "";
 
                 }
                 
@@ -77,4 +95,4 @@ export const createForm = (parentElement, Map,tableComponent) => {
             }
         }
     };
-};
+;
