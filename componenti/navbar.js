@@ -10,18 +10,21 @@ export const NavBarComponent = () => {
             // HTML con input text e pulsante
             const html = `
                 <div class="filter-container">
-                    <input type="text" id="addressFilter" class="form-control" placeholder="Inserisci un indirizzo">
-                    <button id="filterButton" class="btn btn-primary mt-2">Filtra</button>
+                    <input type="text" id="indirizzofiltro" class="form-control" placeholder="Inserisci un indirizzo">
+                    <button id="bottonefiltro" class="btn btn-primary mt-2">Filtra</button>
                 </div>
             `;
             parentElement.innerHTML = html;
 
             // Eventi sul pulsante di filtro
-            document.getElementById("filterButton").onclick = () => {
-                const filterValue = document.getElementById("addressFilter").value.toLowerCase();
-                table1.filterRows(filterValue);
+            document.getElementById("bottonefiltro").onclick = () => {
+                const filtrovalore = document.getElementById("indirizzofiltro").value.toLowerCase();
+                console.log(filtrovalore)
+                table1.filterRows(filtrovalore);
                 table1.render();
+                document.querySelector("#indirizzofiltro").value = "";
             };
+            
 
         },
     };
