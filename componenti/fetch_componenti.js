@@ -1,3 +1,4 @@
+//Componente fetch
 export const generateFetchComponent = () => {
     let conf; 
     return {
