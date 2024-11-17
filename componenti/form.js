@@ -19,7 +19,7 @@ export const createForm = (parentElement, Map,tableComponent) => {
                 `<div>Ora<br/><input id="ora" type="time" class="form-label form-control"/></div>` +
                 `<div>Numero Feriti<br/><input id="numeroferiti" type="number" class="form-label form-control"/></div>` +
                 `<div>Numero Vittime<br/><input id="numerovittime" type="number" class="form-label form-control"/></div>` +
-                `<div id="outputform"></div>` 
+                `<div id="outputform1"></div>` 
 
             document.querySelector("#Aggiungi").onclick = () => {
                 const indirizzo = document.querySelector("#indirizzo").value;
