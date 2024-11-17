@@ -1,4 +1,4 @@
-export const createForm = (parentElement, Map) => {
+export const createForm = (parentElement, Map,tableComponent) => {
     let dato = {};
     let callback = null;
 
@@ -42,13 +42,26 @@ export const createForm = (parentElement, Map) => {
                     outputform.innerHTML = "KO - La data non può essere futura";
                 } else {
                     if (targa2===""){
-                        targa2="Non segnalata"
+                        targa2="Non segnalata";
                     }
                     if (targa3===""){
-                        targa3="Non segnalata"
+                        targa3="Non segnalata";
                     }
                     Map.add(indirizzo, targa1, targa2, targa3, data_incidente, ora, numeroferiti, numerovittime);
+                    dato = {
+                        "Indirizzo": indirizzo,
+                        "Targa 1": targa1,
+                        "Targa 2": targa2,
+                        "Targa 3": targa3,
+                        "Data": data_incidente,
+                        "Ora": ora,
+                        "Numero Feriti": numeroferiti,
+                        "Numero Vittime": numerovittime
+                    };
+                    tableComponent.setData(dato);  
+                    tableComponent.render();
                     outputform.innerHTML = "OK";
+
                 }
                 
 
