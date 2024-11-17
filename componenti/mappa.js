@@ -24,7 +24,7 @@ export const createMap = () => {
       },
 
       // Funzione per aggiungere un marker
-      add: (indirizzo, targa1, targa2, targa3, data, ora, numeroferiti, numerovittime) => {
+      add: (indirizzo, targa1, targa2, targa3, data_incidente, ora, numeroferiti, numerovittime) => {
     const template = "https://us1.locationiq.com/v1/search?key=%TOKEN&q=%LUOGO&format=json&";
     let url = template.replace("%LUOGO", indirizzo).replace("%TOKEN", token_mappe);
 
@@ -38,7 +38,7 @@ export const createMap = () => {
                 Targa 1: ${targa1}<br>
                 Targa 2: ${targa2}<br>
                 Targa 3: ${targa3}<br>
-                Data: ${data}</b><br>
+                Data: ${data_incidente}</b><br>
                 Ora: ${ora}<br>
                 Numero Feriti: ${numeroferiti}<br>
                 Numero Vittime: ${numerovittime}
