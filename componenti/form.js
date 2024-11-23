@@ -2,6 +2,12 @@ export const createForm = (parentElement, Map,tableComponent) => {
     let dato_lista = [];
     let callback = null;
 
+
+    let token_mappe = "";
+
+    fetch("conf.json").then(r => r.json()).then(conf => {
+        token_mappe = conf.token;
+    });
     return {
         setLabels: (labels) => {
             dato_lista = labels;
@@ -47,29 +53,45 @@ export const createForm = (parentElement, Map,tableComponent) => {
                     if (targa3===""){
                         targa3="Non segnalata";
                     }
-                    Map.add(indirizzo, targa1, targa2, targa3, data_incidente, ora, numeroferiti, numerovittime);
-                    const dato = {
-                        "Indirizzo": indirizzo,
-                        "Targa 1": targa1,
-                        "Targa 2": targa2,
-                        "Targa 3": targa3,
-                        "Data": data_incidente,
-                        "Ora": ora,
-                        "Numero Feriti": numeroferiti,
-                        "Numero Vittime": numerovittime
+                    const datodizionario = {
+                        "indirizzo": indirizzo,
+                        "targa1": targa1,
+                        "targa2": targa2,
+                        "targa3": targa3,
+                        "data": data_incidente,
+                        "ora": ora,
+                        "numeroferiti": numeroferiti,
+                        "numerovittime": numerovittime
                     };
-                    dato_lista.push(dato);
-                    compFetch.setData(dato_lista).then(data => {
-                        compFetch.getData().then(data=>{
-                            dato_lista=data;
-                            table1.setData(dato_lista)
-                            table1.render()
-                            Map.render(dato_lista)
-                        })
-                    })}
-                    tableComponent.setData(dato_lista);  
+                    console.log(datodizionario);
+                    const template = "https://us1.locationiq.com/v1/search?key=%TOKEN&q=%LUOGO&format=json&";
+                    let url = template.replace("%LUOGO", indirizzo).replace("%TOKEN", token_mappe);
+                    console.log("arriva prima di fetch")
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("fa fetch")
+                            const datomappa={
+                                name: datodizionario,
+                                coords:[data[0].lat, data[0].lon]
+                            }
+                            console.log("crea datomappa") 
+                            dato_lista.push(datomappa);
+                            compFetch.setData(dato_lista).then(data => {
+                                compFetch.getData().then(data=>{
+                                    table1.setData(datomappa)
+                                    table1.addData(datomappa)
+                                    table1.render()
+                                    Map.add(datomappa)
+                                    Map.render(datomappa)
+                                    console.log(datomappa)
+                                })
+                            })
+                        });    
+                    
+                    /*tableComponent.setData(dato_lista);  
                     tableComponent.render();
-                    compFetch.setData(dato_lista)
+                    compFetch.setData(dato_lista)*/
                     outputform.innerHTML = "OK";
                     document.querySelector("#indirizzo").value = "";
                     document.querySelector("#targa1").value = "";
@@ -95,4 +117,5 @@ export const createForm = (parentElement, Map,tableComponent) => {
             }
         }
     };
-;
+};  
+

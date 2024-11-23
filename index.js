@@ -35,14 +35,15 @@ fetch("conf.json")
         // Configura e renderizza la form
         form.render(table1, compFetch, Map);
 
-        // Recupera i dati e popola i componenti
+        // Recupera i dati 
         compFetch.getData().then((data) => {
-            //la fa generare
-            form.setLabels(data);
+            //form.setLabels(data);
             table1.setData(data); 
             table1.render(); 
-            Map.add(data); 
+            Map.setData(datamappa); 
+            Map.render();
         });
+        
 
         // Configura e renderizza la barra di navigazione
         navBarComp.setParentElement(navbar);

@@ -1,107 +1,68 @@
 export const tableComponent = () => {
-    let data = []; 
-    let filteredData = [];  // Variabile per memorizzare i dati filtrati
+    let data = [];
+    let templateRow = `
+        <tr class="tbl1">
+            <td>#D1</td>
+            <td>#D2</td>
+            <td>#D3</td>
+            <td>#D4</td>
+            <td>#D5</td>
+            <td>#D6</td>
+            <td>#D7</td>
+            <td >#D8</td>
+        </tr>
+    `;
     let parentElement;
 
-    // Funzione per controllare se c'è una corrispondenza nell'indirizzo
-    const controlloindirizzo = (str, substr) => {
-        if (str === "" || substr === "") {
-            return false;
-        }
-        str = str.toLowerCase();
-        substr = substr.toLowerCase();
-
-        for (let i = 0; i <= str.length - substr.length; i++) {
-            let trovato = true;
-
-            for (let j = 0; j < substr.length; j++) {
-                if (str[i + j] !== substr[j]) {
-                    trovato = false;
-                    break;
-                }
-            }
-
-            if (trovato) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-
     return {
-        // Impostazione dei dati
-        setData: (dato) => {
-            data=dato;
-            //data.push(dato);
-            filteredData = data;  
+        setData: (datomappa) => {
+            data = [datomappa]; 
         },
-
-        // Impostazione dell'elemento principale dove renderizzare la tabella
+        addData: (datomappa) => {
+            data.push(datomappa);  // Aggiungi un nuovo dato
+        },
         setParentElement: (pr) => {
-            parentElement = pr;  
+            parentElement = pr;  // Imposta l'elemento genitore
         },
+        render: () => {
 
-        // Funzione per filtrare i dati in base al valore di ricerca
-        filterRows: function (filterValue) {
-            filteredData = data.filter(row =>
-                controlloindirizzo(row["Indirizzo"], filterValue)
-            );
-            this.renderFilteredResults();  // Renderizza i risultati filtrati
-        },
+            // Crea l'intestazione della tabella
+            let html = `
+                <table class="tbl1">
+                    <thead>
+                        <tr class="border">
+                            <th>Indirizzo</th>
+                            <th>Targa 1</th>
+                            <th>Targa 2</th>
+                            <th>Targa 3</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Feriti</th>
+                            <th>Morti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
 
-        // Funzione di rendering della tabella completa
-        render: ()=> {
-            const listacolonne = ["Indirizzo", "Targa 1", "Targa 2", "Targa 3", "Data", "Ora", "Numero Feriti", "Numero Vittime"];
-            let html = "<table class='table'>";
-            
-            html += "<tr>";
-            listacolonne.forEach(colonna => {
-                html += `<th>${colonna}</th>`;
-            });
-            html += "</tr>";
-            
-            data.forEach(elemento => {
-                let row = "<tr class='tbl1'>";
-                listacolonne.forEach(riga => {
-                    row += "<td>" + elemento[riga] + "</td>";  
-                });
-                row += "</tr>";
-                html += row;
-            });
-
-            html += "</table>";
-
-            parentElement.innerHTML = html;  
-        },
-
-        // Funzione di rendering per visualizzare solo i dati filtrati
-        renderFilteredResults:()=> {
-            const listacolonne = ["Indirizzo", "Targa 1", "Targa 2", "Targa 3", "Data", "Ora", "Numero Feriti", "Numero Vittime"];
-            let html = "<table class='table'>";
-            
-            html += "<tr>";
-            listacolonne.forEach(colonna => {
-                html += `<th>${colonna}</th>`;
-            });
-            html += "</tr>";
-
-            // Se ci sono risultati filtrati
-            if (filteredData.length > 0) {
-                filteredData.forEach(elemento => {
-                    let row = "<tr class='tbl1'>";
-                    listacolonne.forEach(riga => {
-                        row += "<td>" + elemento[riga] + "</td>";
-                    });
-                    row += "</tr>";
+            // Aggiungi i dati alla tabella
+            data.forEach((elemento) => {
+                    let row = templateRow
+                        .replace("#D1", elemento.name.indirizzo)
+                        .replace("#D2", elemento.name.targa1)
+                        .replace("#D3", elemento.name.targa2)
+                        .replace("#D4", elemento.name.targa3)
+                        .replace("#D5", elemento.name.data)
+                        .replace("#D6", elemento.name.ora)
+                        .replace("#D7", elemento.name.numeroferiti)
+                        .replace("#D8", elemento.name.numerovittime);
                     html += row;
-                });
-            } else {
-                // Se non ci sono risultati, mostriamo un messaggio
-                html = "<p>Nessun risultato trovato.</p>";
-            }
+            });
 
+            // Completa la tabella
+            html += `</tbody></table>`;
+
+            // Inserisce l'HTML nella pagina
             parentElement.innerHTML = html;
-        }
+        },
     };
 };
