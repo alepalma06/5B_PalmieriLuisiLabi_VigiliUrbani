@@ -9,18 +9,37 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
         #map { width: 600px; height: 600px; }
+
+        .visible {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>    
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>  
     <h1 class="text-center mt-3">🚔🚔🚨🚨Gestione Incidenti🚨🚨🚔🚔</h1>
+    <div>
+        <div id="login" class="container mt-3 d-flex justify-content-end">
+            <input id="name" type="text" class="form-label form-control"/>
+            <input id="password" type="password" class="form-label form-control"/>
+            <button id="login" type="button" class="btn btn-primary mt-2">Login</button>
+          </div>
+          <div id="private" class="hidden">
+            <div class="container mt-3 d-flex justify-content-end">
+                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Aggiungi incidente</button>
+            </div>
+        </div>
+    </div>
     <!-- selezione categoria [ NAV BAR ]-->
-    <div class="container mt-3"><div id="navbar" class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group"></div></div>
+    <div class="container mt-3"><div id="navbar" class="btn-group mt-3" role="group"></div></div>
     
     <div id="outputform"></div>
     <div class="container mt-3 d-flex justify-content-end">
     <!-- Bottone trigger -->
-        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Aggiungi incidente</button>
     <!-- Modale -->
         <div class="modal fade modalltop" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
