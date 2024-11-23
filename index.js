@@ -7,17 +7,19 @@ import { NavBarComponent } from './componenti/navbar.js';
 import { createForm } from './componenti/form.js';
 import { generateFetchComponent } from './componenti/fetch_componenti.js';
 import { createMap } from './componenti/mappa.js';
+import { createLogin } from './componenti/login.js';
 
 fetch("conf.json")
     .then((r) => r.json())
     .then((conf) => {
+        const compFetch = generateFetchComponent();
+
         // Crea componente tabella
         const table1 = tableComponent();
-        table1.setParentElement(tabella);
+        table1.setParentElement(tabella,compFetch);
 
         const navBarComp = NavBarComponent(conf);
-        const compFetch = generateFetchComponent();
-        
+        const login=createLogin();
         const Map = createMap();
 
         //fa render mappa
@@ -39,6 +41,7 @@ fetch("conf.json")
         compFetch.getData().then((data) => {
             //form.setLabels(data);
             table1.setData(data); 
+            table1.addData(data);
             table1.render(); 
             Map.setData(datamappa); 
             Map.render();
