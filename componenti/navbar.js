@@ -19,7 +19,6 @@ export const NavBarComponent = () => {
             // Eventi sul pulsante di filtro
             document.getElementById("bottonefiltro").onclick = () => {
                 const filtrovalore = document.getElementById("indirizzofiltro").value.toLowerCase();
-                console.log(filtrovalore)
                 table1.filterRows(filtrovalore);
                 table1.render();
                 document.querySelector("#indirizzofiltro").value = "";

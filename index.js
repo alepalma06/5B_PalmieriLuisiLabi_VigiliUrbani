@@ -28,8 +28,6 @@ fetch("conf.json")
         // Crea componente form e passa mappa e tabella anche
         const form = createForm(formElement, Map, table1);
 
-        console.log('Oggetto Map:', Map);
-        console.log('Oggetto form:', form);
 
         // Carica i dati di configurazione
         compFetch.caricaDati(conf);

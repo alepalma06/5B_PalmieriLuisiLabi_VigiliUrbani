@@ -67,39 +67,30 @@ export const createForm = (parentElement, Map,tableComponent) => {
                         "numeroferiti": numeroferiti,
                         "numerovittime": numerovittime
                     };
-                    console.log(datodizionario);
                     //faccio fetch
                     const template = "https://us1.locationiq.com/v1/search?key=%TOKEN&q=%LUOGO&format=json&";
                     let url = template.replace("%LUOGO", indirizzo).replace("%TOKEN", token_mappe);
-                    console.log("arriva prima di fetch")
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
-                            console.log("fa fetch")
                             //creo datomappa
                             const datomappa={
                                 name: datodizionario,
                                 coords:[data[0].lat, data[0].lon]
                             }
-                            console.log("crea datomappa") 
                             dato_lista.push(datomappa);
                             //faccio set
                             compFetch.setData(dato_lista).then(data => {
                                 compFetch.getData().then(result=>{
                                     dato_lista=result
-                                    console.log(dato_lista)
                                     table1.setData(result)
                                     table1.render()
                                     Map.setData(result)
                                     Map.render()
-                                    console.log(result)
                                 })
                             })
                         });    
                     
-                    /*tableComponent.setData(dato_lista);  
-                    tableComponent.render();
-                    compFetch.setData(dato_lista)*/
 
                     //azzero campi
                     outputform.innerHTML = "OK";

@@ -30,9 +30,7 @@ export const createMap = () => {
             });
         },
         add: (datomappa) => {
-            console.log("entra dentro add")
             places.push(datomappa);
-            console.log("fa push")
             const marker = L.marker(datomappa.coords).addTo(map);
             marker.bindPopup(`
                 <b>${datomappa.name.indirizzo}</b><br>
