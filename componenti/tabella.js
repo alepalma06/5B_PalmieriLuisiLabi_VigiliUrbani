@@ -22,11 +22,11 @@ export const tableComponent = () => {
             data.push(datomappa);  // Aggiungi un nuovo dato
         },
         setParentElement: (pr) => {
-            parentElement = pr;  // Imposta l'elemento genitore
+            parentElement = pr;  
         },
         render: () => {
 
-            // Crea l'intestazione della tabella
+            // Crea intestazione della tabella
             let html = `
                 <table class="tbl1">
                     <thead>
@@ -44,7 +44,7 @@ export const tableComponent = () => {
                     <tbody>
             `;
 
-            // Aggiungi i dati alla tabella
+            // Aggiungi i dati nella tabella
             data.forEach((elemento) => {
                     let row = templateRow
                         .replace("#D1", elemento.name.indirizzo)
