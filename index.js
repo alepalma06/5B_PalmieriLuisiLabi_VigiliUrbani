@@ -39,11 +39,10 @@ fetch("conf.json")
 
         // Recupera i dati 
         compFetch.getData().then((data) => {
-            //form.setLabels(data);
+            form.setLabels(data);
             table1.setData(data); 
-            table1.addData(data);
             table1.render(); 
-            Map.setData(datamappa); 
+            Map.setData(data); 
             Map.render();
         });
         

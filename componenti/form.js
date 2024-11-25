@@ -78,13 +78,14 @@ export const createForm = (parentElement, Map,tableComponent) => {
                             console.log("crea datomappa") 
                             dato_lista.push(datomappa);
                             compFetch.setData(dato_lista).then(data => {
-                                compFetch.getData().then(data=>{
-                                    table1.setData(datomappa)
-                                    table1.addData(datomappa)
+                                compFetch.getData().then(result=>{
+                                    dato_lista=result
+                                    console.log(dato_lista)
+                                    table1.setData(result)
                                     table1.render()
-                                    Map.add(datomappa)
-                                    Map.render(datomappa)
-                                    console.log(datomappa)
+                                    Map.setData(result)
+                                    Map.render()
+                                    console.log(result)
                                 })
                             })
                         });    

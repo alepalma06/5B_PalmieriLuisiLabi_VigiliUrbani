@@ -12,7 +12,7 @@ export const createMap = () => {
 
     return {
         setData: (datomappa) => {
-            places = dato; // Aggiorna la lista dei luoghi
+            places = datomappa; // Aggiorna la lista dei luoghi
         },
         render: () => {
             places.forEach(place => {

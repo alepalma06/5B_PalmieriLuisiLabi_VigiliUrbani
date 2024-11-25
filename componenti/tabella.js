@@ -16,7 +16,7 @@ export const tableComponent = () => {
 
     return {
         setData: (datomappa) => {
-            data = [datomappa]; 
+            data = datomappa; 
         },
         addData: (datomappa) => {
             data.push(datomappa);  // Aggiungi un nuovo dato
